@@ -5,6 +5,7 @@ import com.agt.viagens.application.dto.request.CriarViagemRequest;
 import com.agt.viagens.application.dto.response.ViagemResponse;
 import com.agt.viagens.application.mapper.ViagemMapper;
 import com.agt.viagens.domain.model.Usuario;
+import com.agt.viagens.domain.model.Viagem;
 import com.agt.viagens.domain.port.ViagemPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,8 +47,17 @@ public class ViagemServiceImpl implements ViagemService {
     @Override
     @Transactional
     public ViagemResponse criar(CriarViagemRequest request, Usuario usuario) {
-        // TODO: construir entidade Viagem a partir do request, associar ao usuario, salvar via viagemPort e retornar mapeada
-        throw new UnsupportedOperationException("Não implementado.");
+        Viagem viagem = Viagem.builder()
+                .destino(request.destino())
+                .dataIda(request.dataIda())
+                .dataVolta(request.dataVolta())
+                .finalidade(request.finalidade())
+                .transporte(request.transporte())
+                .observacoes(request.observacoes())
+                .usuario(usuario)
+                .build();
+
+        return viagemMapper.toResponse(viagemPort.salvar(viagem));
     }
 
     @Override
