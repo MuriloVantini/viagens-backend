@@ -4,6 +4,8 @@ import com.agt.viagens.application.dto.request.AtualizarStatusRequest;
 import com.agt.viagens.application.dto.request.CriarViagemRequest;
 import com.agt.viagens.application.dto.response.ViagemResponse;
 import com.agt.viagens.application.mapper.ViagemMapper;
+import com.agt.viagens.domain.exception.TransicaoStatusInvalidaException;
+import com.agt.viagens.domain.exception.ViagemNaoEncontradaException;
 import com.agt.viagens.domain.model.Usuario;
 import com.agt.viagens.domain.model.Viagem;
 import com.agt.viagens.domain.port.ViagemPort;
@@ -63,10 +65,15 @@ public class ViagemServiceImpl implements ViagemService {
     @Override
     @Transactional
     public ViagemResponse atualizarStatus(Long id, AtualizarStatusRequest request, Usuario usuario) {
-        // TODO 1: buscar viagem por id e usuario — lançar ViagemNaoEncontradaException se não encontrar
-        // TODO 2: validar transição com viagem.getStatus().podeTransicionarPara(request.status())
-        //         lançar TransicaoStatusInvalidaException se inválida
-        // TODO 3: atualizar o status, salvar via viagemPort e retornar mapeada
-        throw new UnsupportedOperationException("Não implementado.");
+        Viagem viagem = viagemPort.buscarPorIdEUsuario(id, usuario)
+                .orElseThrow(() -> new ViagemNaoEncontradaException(id));
+
+        if (!viagem.getStatus().podeTransicionarPara(request.status())) {
+            throw new TransicaoStatusInvalidaException(viagem.getStatus(), request.status());
+        }
+
+        viagem.setStatus(request.status());
+
+        return viagemMapper.toResponse(viagemPort.salvar(viagem));
     }
 }
