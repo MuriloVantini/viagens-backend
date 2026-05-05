@@ -37,8 +37,10 @@ public class ViagemServiceImpl implements ViagemService {
     @Override
     @Transactional(readOnly = true)
     public List<ViagemResponse> listarPorUsuario(Usuario usuario) {
-        // TODO: buscar viagens do usuário via viagemPort e converter cada uma com viagemMapper.toResponse()
-        throw new UnsupportedOperationException("Não implementado.");
+        return viagemPort.buscarPorUsuario(usuario)
+                .stream()
+                .map(viagemMapper::toResponse)
+                .toList();
     }
 
     @Override
