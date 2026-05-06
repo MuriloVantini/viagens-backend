@@ -13,8 +13,8 @@ public class ViagemMapper {
                 viagem.getDestino(),
                 viagem.getDataIda(),
                 viagem.getDataVolta(),
-                viagem.getFinalidade(),
-                viagem.getTransporte(),
+                viagem.getFinalidade().getDescricao(),
+                viagem.getTransporte().getDescricao(),
                 viagem.getObservacoes(),
                 viagem.getStatus(),
                 viagem.getCriadoEm()

@@ -1,5 +1,7 @@
 package com.agt.viagens.config;
 
+import com.agt.viagens.domain.enums.FinalidadeEnum;
+import com.agt.viagens.domain.enums.TransporteEnum;
 import com.agt.viagens.domain.model.StatusViagem;
 import com.agt.viagens.domain.model.Usuario;
 import com.agt.viagens.domain.model.Viagem;
@@ -40,8 +42,8 @@ public class DataSeeder implements ApplicationRunner {
                 .destino("São Paulo - SP")
                 .dataIda(LocalDate.now().plusDays(10))
                 .dataVolta(LocalDate.now().plusDays(12))
-                .finalidade("Reunião")
-                .transporte("Aéreo")
+                .finalidade(FinalidadeEnum.REUNIAO)
+                .transporte(TransporteEnum.AEREO)
                 .observacoes("Levar apresentação atualizada")
                 .status(StatusViagem.AGENDADA)
                 .usuario(usuario)
@@ -51,8 +53,8 @@ public class DataSeeder implements ApplicationRunner {
                 .destino("Campinas - SP")
                 .dataIda(LocalDate.now().minusDays(10))
                 .dataVolta(LocalDate.now().minusDays(9))
-                .finalidade("Treinamento")
-                .transporte("Carro da Empresa")
+                .finalidade(FinalidadeEnum.TREINAMENTO)
+                .transporte(TransporteEnum.CARRO_EMPRESA)
                 .status(StatusViagem.CONCLUIDA)
                 .usuario(usuario)
                 .build());
@@ -61,8 +63,8 @@ public class DataSeeder implements ApplicationRunner {
                 .destino("Ribeirão Preto - SP")
                 .dataIda(LocalDate.now().minusDays(2))
                 .dataVolta(LocalDate.now().plusDays(1))
-                .finalidade("Visita Técnica")
-                .transporte("Carro Próprio")
+                .finalidade(FinalidadeEnum.VISITA_TECNICA)
+                .transporte(TransporteEnum.CARRO_PROPRIO)
                 .status(StatusViagem.EM_ANDAMENTO)
                 .usuario(usuario)
                 .build());

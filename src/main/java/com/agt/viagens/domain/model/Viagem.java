@@ -1,5 +1,7 @@
 package com.agt.viagens.domain.model;
 
+import com.agt.viagens.domain.enums.FinalidadeEnum;
+import com.agt.viagens.domain.enums.TransporteEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,11 +36,13 @@ public class Viagem {
     @Column(name = "data_volta", nullable = false)
     private LocalDate dataVolta;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 100)
-    private String finalidade;
+    private FinalidadeEnum finalidade;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 100)
-    private String transporte;
+    private TransporteEnum transporte;
 
     @Column(length = 1000)
     private String observacoes;
